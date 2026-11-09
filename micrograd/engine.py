@@ -1,3 +1,5 @@
+import math
+
 class Value:
     """Value is the single scalar node in a computational graph."""
 

@@ -1,5 +1,6 @@
 import math
 
+
 class Value:
     """Value is the single scalar node in a computational graph."""
 
@@ -53,6 +54,25 @@ class Value:
             self.grad += (1 - t**2) * out.grad
 
         out._backward = _backward
+
+        return out
+
+    def __pow__(self, other):
+        assert isinstance(other, (int, float)), "only supporting int/float powers"
+        out = Value(self.data**other, (self,), f"**{other}")
+
+        def _backward():
+            self.grad += other * (self.data ** (other - 1)) * out.grad
+
+        out._backward = _backward
+
+        return out
+
+    def __neg__(self):
+        return self * -1
+
+    def __sub__(self, other):
+        return self + (-other)
 
         return out
 

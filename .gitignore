@@ -27,3 +27,6 @@ htmlcov/
 .idea/
 *.swp
 .DS_Store
+
+# Local dev notes
+.dev/

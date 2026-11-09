@@ -11,11 +11,11 @@ class Neuron:
         nin: int, the number of inputs
         """
         # if label create the prefix with hyphen, empty otherwise. Ex. N-
-        self.label = "" if len(label) > 0 else f"{label}-"
+        self.label = f"{label}-" if len(label) > 0 else label
         self.w = [
             Value(random.uniform(-1, 1), label=f"{self.label}V{i}") for i in range(nin)
         ]
-        self.b = Value(random.uniform(-1, 1), label=f"{label}-b")
+        self.b = Value(random.uniform(-1, 1), label=f"{self.label}-b")
 
     def __call__(self, x):
         """x - input data"""
@@ -24,7 +24,8 @@ class Neuron:
         return out
 
     def parameters(self):
-        return [p for p in self.w]
+        out = [p for p in self.w] + [self.b]
+        return out
 
 
 class Layer:
@@ -35,7 +36,7 @@ class Layer:
 
     def __init__(self, nin, nout, label=""):
         # if label create the prefix with hyphen, empty otherwise. Ex. L-
-        self.label = "" if len(label) > 0 else f"{label}-"
+        self.label = f"{label}-" if len(label) > 0 else label
         self.neurons = [Neuron(nin, label=f"{self.label}N{i}") for i in range(nout)]
 
     def __call__(self, x):

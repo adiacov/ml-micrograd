@@ -20,8 +20,8 @@ class Value:
         out = Value(self.data * other.data, (self, other), "*")
 
         def _backward():
-            self.grad = out.grad * other.data
-            other.grad = out.grad * self.data
+            self.grad += out.grad * other.data
+            other.grad += out.grad * self.data
 
         out._backward = _backward
 
@@ -73,8 +73,6 @@ class Value:
 
     def __sub__(self, other):
         return self + (-other)
-
-        return out
 
     def backward(self):
         """Calculate gradients for each Value object in a graph in topological order starting from the last one."""

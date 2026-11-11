@@ -30,3 +30,7 @@ htmlcov/
 
 # Local dev notes
 .dev/
+
+# Agent instructions (local only)
+AGENTS.md
+CLAUDE.md
